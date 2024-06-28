@@ -1,0 +1,10 @@
+<div class="col-sm-2">
+    <select class="form-select"
+    [(ngModel)]="wishFilter"
+    (ngModelChange)="updateFilter($event)"
+    >
+      <option value="0">All</option>
+      <option value="1">Completed</option>
+      <option value="2">Uncompleted</option>
+    </select>
+</div>
