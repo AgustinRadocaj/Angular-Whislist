@@ -5,8 +5,7 @@
 <ul class="wish-list">
     @for (wish of wishes; track wish) {
     <app-wish-list-item 
-    [wishText]="wish.wishText"
-    [(fullfilled)]="wish.isComplete"
+    [wish]="wish"
     >
     </app-wish-list-item>
     }

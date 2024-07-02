@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import events from '../../shared/services/EventService'
+import {EventService} from '../../shared/services/EventService'
+import { WishItem } from '../../shared/models/wishItem';
 
 @Component({
   selector: 'app-wish-list-item',
@@ -10,23 +11,27 @@ import events from '../../shared/services/EventService'
   styleUrl: './wish-list-item.component.css'
 })
 export class WishListItemComponent {
-  @Input() wishText!: string;
 
-  @Input() fullfilled!: boolean;
-  @Output() fullfilledChange = new EventEmitter<boolean>();
+  constructor(private events: EventService) {
+
+  }
+  @Input() wish!: WishItem;
+
+  //@Input() fullfilled!: boolean;
+  //@Output() fullfilledChange = new EventEmitter<boolean>();
 
   get cssClasses() {
       //return this.fullfilled ? 'strikeout text-muted' : '';
       //return this.fullfilled ? ['strikeout', 'text-muted'] : [];
-        return {'strikeout text-muted': this.fullfilled}
+        return {'strikeout text-muted': this.wish.isComplete}
       // tres maneras de hacer lo mismo
   }
   toogleFullfilled() {
-    this.fullfilled = !this.fullfilled;
-    this.fullfilledChange.emit(this.fullfilled)
+    this.wish.isComplete = !this.wish.isComplete;
+    //this.fullfilledChange.emit(this.fullfilled)
     }
 
     removeWish() {
-      events.emit("removeWish", this.wishText)
+      this.events.emit("removeWish", this.wish)
     }
 }
